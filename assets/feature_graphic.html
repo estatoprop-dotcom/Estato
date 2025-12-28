@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Estato Feature Graphic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .feature-graphic {
+      width: 1024px;
+      height: 500px;
+      background: linear-gradient(135deg, #E91E63 0%, #9C27B0 50%, #673AB7 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Decorative circles */
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+    }
+    
+    .circle-1 {
+      width: 300px;
+      height: 300px;
+      background: white;
+      top: -100px;
+      right: -50px;
+    }
+    
+    .circle-2 {
+      width: 200px;
+      height: 200px;
+      background: white;
+      bottom: -80px;
+      left: 100px;
+    }
+    
+    .circle-3 {
+      width: 150px;
+      height: 150px;
+      background: white;
+      top: 50px;
+      left: -50px;
+    }
+    
+    .content {
+      z-index: 10;
+      max-width: 500px;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .logo-icon {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    .logo-icon svg {
+      width: 35px;
+      height: 35px;
+    }
+    
+    .app-name {
+      font-size: 48px;
+      font-weight: 800;
+      color: white;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    
+    .tagline {
+      font-size: 26px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 25px;
+      line-height: 1.3;
+    }
+    
+    .features {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .feature-badge {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 10px 20px;
+      border-radius: 25px;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .feature-badge svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .phone-mockup {
+      z-index: 10;
+      position: relative;
+    }
+    
+    .phone-frame {
+      width: 240px;
+      height: 480px;
+      background: #1a1a1a;
+      border-radius: 35px;
+      padding: 10px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
+    }
+    
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #FFE4EC 0%, #F8E1F4 100%);
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .phone-header {
+      background: linear-gradient(135deg, #E91E63, #9C27B0);
+      padding: 15px;
+      color: white;
+    }
+    
+    .phone-greeting {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    
+    .phone-location {
+      font-size: 10px;
+      opacity: 0.9;
+    }
+    
+    .phone-search {
+      margin: 10px 15px;
+      background: white;
+      border-radius: 25px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      color: #999;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .phone-content {
+      padding: 10px 15px;
+    }
+    
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .property-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .property-image {
+      height: 80px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+    }
+    
+    .featured-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #FFD700;
+      color: #333;
+      font-size: 8px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+    
+    .property-info {
+      padding: 8px 10px;
+    }
+    
+    .property-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #333;
+    }
+    
+    .property-location {
+      font-size: 8px;
+      color: #666;
+    }
+    
+    .property-price {
+      background: #E91E63;
+      color: white;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 5px;
+    }
+    
+    .quick-tools {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    
+    .tool-btn {
+      flex: 1;
+      background: white;
+      border-radius: 10px;
+      padding: 8px 5px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    .tool-icon {
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+    
+    .tool-text {
+      font-size: 7px;
+      color: #666;
+      font-weight: 600;
+    }
+    
+    /* Second phone (smaller, behind) */
+    .phone-frame-2 {
+      position: absolute;
+      right: -80px;
+      top: 40px;
+      width: 180px;
+      height: 360px;
+      background: #1a1a1a;
+      border-radius: 28px;
+      padding: 8px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);
+      opacity: 0.7;
+    }
+    
+    .phone-screen-2 {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #E3F2FD 0%, #F3E5F5 100%);
+      border-radius: 22px;
+    }
+  </style>
+</head>
+<body>
+  <div class="feature-graphic">
+    <!-- Decorative circles -->
+    <div class="circle circle-1"></div>
+    <div class="circle circle-2"></div>
+    <div class="circle circle-3"></div>
+    
+    <!-- Left content -->
+    <div class="content">
+      <div class="logo-section">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" fill="url(#gradient1)" stroke="#E91E63" stroke-width="2"/>
+            <path d="M9 22V12H15V22" stroke="#9C27B0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="gradient1" x1="3" y1="2" x2="21" y2="22">
+                <stop stop-color="#E91E63"/>
+                <stop offset="1" stop-color="#9C27B0"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="app-name">Estato</span>
+      </div>
+      
+      <div class="tagline">Find Your Dream Property<br/>Buy • Rent • Lease</div>
+      
+      <div class="features">
+        <div class="feature-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          1000+ Properties
+        </div>
+        <div class="feature-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Pan India
+        </div>
+        <div class="feature-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Verified Listings
+        </div>
+      </div>
+    </div>
+    
+    <!-- Phone mockup -->
+    <div class="phone-mockup">
+      <div class="phone-frame-2">
+        <div class="phone-screen-2"></div>
+      </div>
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div class="phone-greeting">Hello, User! 👋</div>
+            <div class="phone-location">📍 Lucknow, Uttar Pradesh</div>
+          </div>
+          
+          <div class="phone-search">
+            🔍 Search properties...
+          </div>
+          
+          <div class="phone-content">
+            <div class="section-title">⭐ Featured Properties</div>
+            <div class="property-card">
+              <div class="property-image">
+                <span class="featured-tag">⭐ Featured</span>
+              </div>
+              <div class="property-info">
+                <div class="property-title">Co-Living Space in IT Hub</div>
+                <div class="property-location">📍 Gomti Nagar, Lucknow</div>
+                <span class="property-price">₹15,000/mo</span>
+              </div>
+            </div>
+            
+            <div class="section-title" style="margin-top: 10px;">🛠️ Quick Tools</div>
+            <div class="quick-tools">
+              <div class="tool-btn">
+                <div class="tool-icon">🧮</div>
+                <div class="tool-text">EMI Calc</div>
+              </div>
+              <div class="tool-btn">
+                <div class="tool-icon">⚖️</div>
+                <div class="tool-text">Compare</div>
+              </div>
+              <div class="tool-btn">
+                <div class="tool-icon">🕐</div>
+                <div class="tool-text">Recent</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <p style="margin-top: 20px; font-family: Arial; color: #666;">
+    <strong>Instructions:</strong> Open this file in Chrome, right-click → Inspect → Toggle device toolbar → 
+    Set dimensions to 1024x500 → Take screenshot (Ctrl+Shift+P → "Capture screenshot")
+  </p>
+</body>
+</html>

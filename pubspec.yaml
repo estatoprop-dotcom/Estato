@@ -1,0 +1,112 @@
+name: estato
+description: Lucknow's #1 Real Estate App - Buy, Sell & Rent Properties with Verified Listings. Find flats, homes, PGs, commercial spaces in Gomti Nagar, Hazratganj, Indira Nagar. Fast property search with real-time updates, smart filters, and direct owner contact. Download now for transparent property deals!
+publish_to: 'none'
+version: 1.0.1+2
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # UI Components
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.1.0
+  
+  # State Management
+  provider: ^6.1.1
+  
+  # Icons
+  font_awesome_flutter: ^10.6.0
+  
+  # Image Handling
+  cached_network_image: ^3.3.0
+  image_picker: ^1.0.4
+  
+  # Storage
+  shared_preferences: ^2.2.2
+  
+  # Networking
+  http: ^1.1.0
+  http_parser: ^4.0.2
+  
+  # UI Utilities
+  carousel_slider: ^5.0.0
+  flutter_rating_bar: ^4.0.1
+  intl: ^0.18.1
+  url_launcher: ^6.2.1
+  share_plus: ^10.1.3
+  
+  # Date/Time
+  table_calendar: ^3.0.9
+  time_picker_spinner_pop_up: ^1.0.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^5.0.0
+  
+  # App Icon Generator
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/Estato App Logo.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/icons/Estato App Logo.png"
+  windows:
+    generate: true
+    image_path: "assets/icons/Estato App Logo.png"
+  macos:
+    generate: true
+    image_path: "assets/icons/Estato App Logo.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/icons/Estato App Logo.png"
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package

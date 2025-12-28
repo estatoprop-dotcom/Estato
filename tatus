@@ -1,0 +1,100 @@
+warning: in the working copy of 'android/app/build.gradle.kts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pubspec.lock', LF will be replaced by CRLF the next time Git touches it
+backend/backend/routes/admin.js:1407: trailing whitespace.
+[32m+[m[41m    [m
+backend/backend/routes/admin.js:1489: trailing whitespace.
+[32m+[m[41m    [m
+backend/backend/routes/admin.js:1586: trailing whitespace.
+[32m+[m[41m    [m
+backend/backend/routes/users.js:557: trailing whitespace.
+[32m+[m[41m        [m
+backend/backend/routes/users.js:577: trailing whitespace.
+[32m+[m[41m        [m
+esteto properties/app/page.tsx:29: trailing whitespace.
+[32m+[m[41m      [m
+esteto properties/app/structured-data.tsx:3: trailing whitespace.
+[32m+[m[41m  [m
+lib/main.dart:66: trailing whitespace.
+[32m+[m[41m  [m
+lib/main.dart:115: trailing whitespace.
+[32m+[m[41m    [m
+lib/main.dart:213: trailing whitespace.
+[32m+[m[41m    [m
+lib/main.dart:233: trailing whitespace.
+[32m+[m[41m            [m
+lib/main.dart:237: trailing whitespace.
+[32m+[m[41m            [m
+lib/main.dart:241: trailing whitespace.
+[32m+[m[41m            [m
+lib/main.dart:246: trailing whitespace.
+[32m+[m[41m            [m
+lib/providers/property_provider.dart:202: trailing whitespace.
+[32m+[m[41m      [m
+lib/providers/property_provider.dart:208: trailing whitespace.
+[32m+[m[41m      [m
+lib/providers/property_provider.dart:247: trailing whitespace.
+[32m+[m[41m      [m
+lib/screens/auth/login_screen.dart:62: trailing whitespace.
+[32m+[m[41m    [m
+lib/screens/auth/login_screen.dart:96: leftover conflict marker
+lib/screens/auth/login_screen.dart:141: leftover conflict marker
+lib/screens/auth/login_screen.dart:165: leftover conflict marker
+lib/screens/auth/register_screen.dart:24: trailing whitespace.
+[32m+[m[41m  [m
+lib/screens/auth/register_screen.dart:77: trailing whitespace.
+[32m+[m[41m    [m
+lib/screens/auth/register_screen.dart:91: trailing whitespace.
+[32m+[m[41m    [m
+lib/screens/auth/register_screen.dart:128: leftover conflict marker
+lib/screens/auth/register_screen.dart:173: leftover conflict marker
+lib/screens/auth/register_screen.dart:200: leftover conflict marker
+lib/screens/booking/schedule_visit_screen.dart:148: trailing whitespace.
+[32m+[m[32m      final notesText = _notesController.text.isNotEmpty[m[41m [m
+lib/screens/booking/schedule_visit_screen.dart:149: trailing whitespace.
+[32m+[m[32m          ? '\n\nNotes: ${_notesController.text}'[m[41m [m
+lib/screens/booking/schedule_visit_screen.dart:151: trailing whitespace.
+[32m+[m[41m      [m
+lib/screens/chat/chat_list_screen.dart:115: trailing whitespace.
+[32m+[m[41m          [m
+lib/screens/chat/chat_screen.dart:49: leftover conflict marker
+lib/screens/chat/chat_screen.dart:52: leftover conflict marker
+lib/screens/chat/chat_screen.dart:54: leftover conflict marker
+lib/screens/chat/chat_screen.dart:63: trailing whitespace.
+[32m+[m[41m    [m
+lib/screens/chat/chat_screen.dart:172: trailing whitespace.
+[32m+[m[41m                  [m
+lib/screens/chat/chat_screen.dart:174: trailing whitespace.
+[32m+[m[41m                  [m
+lib/screens/home/home_screen.dart:567: trailing whitespace.
+[32m+[m[32m              color: isSelected[m[41m [m
+lib/screens/home/home_screen.dart:578: trailing whitespace.
+[32m+[m[32m                color: isSelected[m[41m [m
+lib/screens/splash_screen.dart:122: trailing whitespace.
+[32m+[m[41m    [m
+lib/services/api_client.dart:772: trailing whitespace.
+[32m+[m[41m      [m
+lib/services/api_client.dart:776: trailing whitespace.
+[32m+[m[41m      [m
+lib/services/api_client.dart:783: trailing whitespace.
+[32m+[m[41m      [m
+lib/services/api_client.dart:793: trailing whitespace.
+[32m+[m[41m      [m
+lib/services/config_service.dart:23: trailing whitespace.
+[32m+[m[41m  [m
+lib/services/config_service.dart:29: trailing whitespace.
+[32m+[m[41m  [m
+lib/services/config_service.dart:38: trailing whitespace.
+[32m+[m[41m  [m
+lib/services/config_service.dart:43: trailing whitespace.
+[32m+[m[41m  [m
+lib/services/config_service.dart:50: trailing whitespace.
+[32m+[m[41m  [m
+lib/services/config_service.dart:55: trailing whitespace.
+[32m+[m[41m  [m
+lib/services/config_service.dart:61: trailing whitespace.
+[32m+[m[41m  [m
+lib/services/config_service.dart:66: trailing whitespace.
+[32m+[m[41m  [m
+lib/widgets/property_card.dart:91: leftover conflict marker
+lib/widgets/property_card.dart:128: leftover conflict marker
+lib/widgets/property_card.dart:131: leftover conflict marker
