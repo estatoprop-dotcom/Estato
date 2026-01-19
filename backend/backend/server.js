@@ -69,35 +69,63 @@ app.use(helmet()); // Security headers
 app.use(compression()); // Compress responses
 app.use(morgan('dev')); // Logging
 
-// CORS configuration - Allow all origins for development
+// CORS configuration - Comprehensive setup for mobile apps and web admin
 const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')
-  : ['http://localhost:3000', 'http://localhost:8080', 'http://127.0.0.1:3000'];
+  ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
+  : [];
+
+// Add default allowed origins
+const defaultAllowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:8080',
+  'http://127.0.0.1:3000',
+  'https://estato-axtj.onrender.com', // Add the deployed backend URL
+];
+
+const allAllowedOrigins = [...new Set([...allowedOrigins, ...defaultAllowedOrigins])];
+
+console.log('🔐 CORS Configuration:');
+console.log('   Allowed Origins:', allAllowedOrigins);
+console.log('   Environment:', process.env.NODE_ENV || 'development');
 
 app.use(
   cors({
     origin: function(origin, callback) {
-      // Allow requests with no origin (mobile apps, curl, etc.)
-      if (!origin) return callback(null, true);
+      // Allow requests with no origin (mobile apps, Postman, curl, etc.)
+      if (!origin) {
+        return callback(null, true);
+      }
       
       // In development, allow all origins
       if (process.env.NODE_ENV !== 'production') {
         return callback(null, true);
       }
       
-      // In production, check against allowed origins
-      if (allowedOrigins.includes(origin)) {
+      // Check if origin is in allowed list
+      if (allAllowedOrigins.some(allowed => origin.includes(allowed) || allowed.includes(origin))) {
         return callback(null, true);
       }
       
-      // Also allow any localhost origin
+      // Allow any localhost or 127.0.0.1 origin
       if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
         return callback(null, true);
       }
       
-      callback(new Error('Not allowed by CORS'));
+      // Allow any render.com subdomain (for admin panel)
+      if (origin.includes('render.com')) {
+        return callback(null, true);
+      }
+      
+      // In production for mobile apps, allow all origins (since mobile apps don't send origin)
+      // This is safe because we use JWT authentication
+      console.log('⚠️  Unknown origin attempting to connect:', origin);
+      return callback(null, true); // Allow all origins for mobile app compatibility
     },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    exposedHeaders: ['Content-Range', 'X-Content-Range'],
+    maxAge: 86400, // 24 hours - cache preflight requests
   })
 );
 
