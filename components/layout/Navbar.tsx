@@ -26,9 +26,9 @@ export default function Navbar() {
     }
 
     checkUser()
-    
+
     if (supabase) {
-      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
         setUser(session?.user ?? null)
         if (session?.user) {
           fetchUserRole(session.user.id)
@@ -85,7 +85,7 @@ export default function Navbar() {
         .select('role')
         .eq('id', userId)
         .single()
-      
+
       if (data) {
         setUserRole(data.role)
       }
@@ -144,11 +144,10 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'text-primary-600 bg-primary-50'
-                      : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${isActive
+                    ? 'text-primary-600 bg-primary-50'
+                    : 'text-gray-700 hover:text-primary-600 hover:bg-gray-50'
+                    }`}
                 >
                   {Icon && <Icon className="w-4 h-4" />}
                   {link.label}
@@ -179,7 +178,7 @@ export default function Navbar() {
                     </Button>
                   </Link>
                 )}
-                
+
                 {/* User Dropdown */}
                 <div className="relative" ref={userMenuRef}>
                   <button
@@ -199,7 +198,7 @@ export default function Navbar() {
                         <p className="text-sm font-semibold text-gray-900">{user.email}</p>
                         <p className="text-xs text-gray-500 mt-0.5">{userRole === 'admin' ? 'Administrator' : 'User'}</p>
                       </div>
-                      
+
                       <Link
                         href="/dashboard"
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
@@ -208,7 +207,7 @@ export default function Navbar() {
                         <User className="w-4 h-4" />
                         Dashboard
                       </Link>
-                      
+
                       <Link
                         href="/dashboard?tab=saved"
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
@@ -217,7 +216,7 @@ export default function Navbar() {
                         <Heart className="w-4 h-4" />
                         Saved Properties
                       </Link>
-                      
+
                       {userRole === 'admin' && (
                         <Link
                           href="/admin"
@@ -228,9 +227,9 @@ export default function Navbar() {
                           Admin Panel
                         </Link>
                       )}
-                      
+
                       <div className="border-t border-gray-100 my-1" />
-                      
+
                       <button
                         onClick={handleSignOut}
                         className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
@@ -283,11 +282,10 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
-                    isActive
-                      ? 'text-primary-600 bg-primary-50'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${isActive
+                    ? 'text-primary-600 bg-primary-50'
+                    : 'text-gray-700 hover:bg-gray-50'
+                    }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {Icon && <Icon className="w-5 h-5" />}
@@ -295,9 +293,9 @@ export default function Navbar() {
                 </Link>
               )
             })}
-            
+
             <div className="border-t border-gray-200 my-2" />
-            
+
             {/* Add Property Button - Mobile */}
             <Link
               href="/properties/add"
@@ -307,7 +305,7 @@ export default function Navbar() {
               <Plus className="w-5 h-5" />
               Add Property
             </Link>
-            
+
             {user ? (
               <>
                 <div className="border-t border-gray-200 my-2" />
