@@ -77,7 +77,7 @@ export default function PropertiesPage() {
       .from('properties')
       .select('*')
       .eq('status', 'active')
-      .order('created_at', { ascending: false})
+      .order('created_at', { ascending: false })
 
     setProperties(data || [])
     setLoading(false)
@@ -85,10 +85,10 @@ export default function PropertiesPage() {
 
   const applyFilters = useCallback(async () => {
     setSearching(true)
-    
+
     // Simulate slight delay for better UX
     await new Promise(resolve => setTimeout(resolve, 100))
-    
+
     if (shouldUseMockData()) {
       const filtered = await mockApi.getProperties(filters)
       setFilteredProperties(filtered)
@@ -189,7 +189,7 @@ export default function PropertiesPage() {
     setLoadingMore(true)
     // Simulate loading delay
     await new Promise(resolve => setTimeout(resolve, 500))
-    
+
     const currentLength = displayedProperties.length
     const nextProperties = filteredProperties.slice(0, currentLength + itemsPerPage)
     setDisplayedProperties(nextProperties)
@@ -232,7 +232,7 @@ export default function PropertiesPage() {
             {/* Dark Overlay for better text readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-primary-900/80 via-primary-800/70 to-primary-900/80"></div>
           </div>
-          
+
           <div className="container-custom relative z-10">
             <div className="max-w-6xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
@@ -276,7 +276,7 @@ export default function PropertiesPage() {
                 <Button
                   onClick={() => setShowFilters(!showFilters)}
                   className="flex items-center justify-center gap-2 md:w-auto w-full"
-                  variant={showFilters ? 'default' : 'outline'}
+                  variant={showFilters ? 'primary' : 'outline'}
                 >
                   <SlidersHorizontal className="w-5 h-5" />
                   Filters
@@ -322,11 +322,10 @@ export default function PropertiesPage() {
                         ].map((option) => (
                           <label
                             key={option.value || 'all'}
-                            className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${
-                              filters.listing_type === option.value
+                            className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${filters.listing_type === option.value
                                 ? 'bg-primary-50 border-2 border-primary-600'
                                 : 'bg-gray-50 border-2 border-transparent hover:border-gray-200'
-                            }`}
+                              }`}
                           >
                             <input
                               type="radio"
@@ -335,9 +334,8 @@ export default function PropertiesPage() {
                               onChange={() => handleFilterChange('listing_type', option.value)}
                               className="sr-only"
                             />
-                            <span className={`text-sm font-medium ${
-                              filters.listing_type === option.value ? 'text-primary-700' : 'text-gray-700'
-                            }`}>
+                            <span className={`text-sm font-medium ${filters.listing_type === option.value ? 'text-primary-700' : 'text-gray-700'
+                              }`}>
                               {option.label}
                             </span>
                           </label>
@@ -466,7 +464,7 @@ export default function PropertiesPage() {
                         <PropertyCard key={property.id} property={property} />
                       ))}
                     </div>
-                    
+
                     {/* Load More Button */}
                     {hasMore && (
                       <div className="mt-12 text-center">
