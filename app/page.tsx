@@ -9,7 +9,7 @@ import SearchBar from '@/components/ui/SearchBar'
 import Button from '@/components/ui/Button'
 import { Property } from '@/lib/supabase/types'
 import { createSupabaseClient } from '@/lib/supabase/client'
-import { useMockData, mockApi } from '@/lib/mock-api'
+import { shouldUseMockData, mockApi } from '@/lib/mock-api'
 import Link from 'next/link'
 
 export default function HomePage() {
@@ -22,12 +22,12 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
 
   const fetchProperties = async () => {
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       // Use mock data
       const featured = await mockApi.getFeaturedProperties()
       const trending = await mockApi.getTrendingProperties()
       const allProperties = await mockApi.getProperties()
-      
+
       setFeaturedProperties(featured)
       setTrendingProperties(trending)
       setBuyProperties(allProperties.filter(p => p.listing_type === 'sale').slice(0, 4))
@@ -43,7 +43,7 @@ export default function HomePage() {
       const featured = await mockApi.getFeaturedProperties()
       const trending = await mockApi.getTrendingProperties()
       const allProperties = await mockApi.getProperties()
-      
+
       setFeaturedProperties(featured)
       setTrendingProperties(trending)
       setBuyProperties(allProperties.filter(p => p.listing_type === 'sale').slice(0, 4))
@@ -51,7 +51,7 @@ export default function HomePage() {
       setLoading(false)
       return
     }
-    
+
     // Fetch featured properties
     const { data: featured } = await supabase
       .from('properties')
@@ -137,7 +137,7 @@ export default function HomePage() {
           {/* Dark Overlay for better text readability */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary-900/90 via-primary-800/85 to-primary-900/90"></div>
         </div>
-        
+
         <div className="container-custom relative z-10 w-full">
           <div className="max-w-5xl mx-auto text-center py-8">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 drop-shadow-lg leading-tight">
@@ -146,11 +146,11 @@ export default function HomePage() {
             <p className="text-lg mb-8 text-white/90 drop-shadow-md">
               Discover premium properties for sale and rent in Lucknow. Your perfect home is just a search away.
             </p>
-            
+
             {/* Hero Search */}
             <div className="bg-white rounded-xl p-6 shadow-2xl">
               <SearchBar onSearch={handleSearch} className="mb-4" />
-              
+
               {/* Quick Filters */}
               <div className="flex flex-wrap gap-2 justify-center">
                 <Link href="/properties?listing_type=rent">
@@ -178,7 +178,7 @@ export default function HomePage() {
           <div className="absolute top-10 right-10 w-64 h-64 bg-primary-200/20 rounded-full blur-3xl"></div>
           <div className="absolute bottom-10 left-10 w-64 h-64 bg-primary-300/20 rounded-full blur-3xl"></div>
         </div>
-        
+
         <div className="container-custom relative z-10">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-primary-100 px-4 py-2 rounded-full mb-4">
@@ -191,7 +191,7 @@ export default function HomePage() {
               Find the perfect property type that matches your needs
             </p>
           </div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
             {categories.map((category, index) => {
               const gradients = [
@@ -202,7 +202,7 @@ export default function HomePage() {
                 'from-green-500 to-emerald-500',
               ]
               const gradient = gradients[index % gradients.length]
-              
+
               return (
                 <Link
                   key={category.label}
@@ -211,7 +211,7 @@ export default function HomePage() {
                 >
                   {/* Gradient Background on Hover */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                  
+
                   {/* Content */}
                   <div className="relative z-10">
                     <div className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
@@ -224,7 +224,7 @@ export default function HomePage() {
                       {category.count} Properties
                     </p>
                   </div>
-                  
+
                   {/* Decorative Corner */}
                   <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-white/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </Link>
@@ -241,7 +241,7 @@ export default function HomePage() {
           <div className="absolute top-20 left-10 w-96 h-96 bg-primary-100/20 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary-200/20 rounded-full blur-3xl"></div>
         </div>
-        
+
         <div className="container-custom relative z-10">
           {/* Header with Toggle */}
           <div className="text-center mb-12">
@@ -251,34 +251,32 @@ export default function HomePage() {
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Properties for {listingType === 'buy' ? 'Buy' : 'Rent'}
             </h2>
-            
+
             {/* Toggle Switch */}
             <div className="flex items-center justify-center gap-4 mb-8">
               <button
                 onClick={() => setListingType('buy')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                  listingType === 'buy'
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${listingType === 'buy'
                     ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg scale-105'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 <Key className="w-5 h-5" />
                 Buy
               </button>
               <button
                 onClick={() => setListingType('rent')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                  listingType === 'rent'
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${listingType === 'rent'
                     ? 'bg-gradient-to-r from-blue-500 to-cyan-600 text-white shadow-lg scale-105'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
+                  }`}
               >
                 <Home className="w-5 h-5" />
                 Rent
               </button>
             </div>
           </div>
-          
+
           {/* Properties Grid */}
           {(listingType === 'buy' ? buyProperties : rentProperties).length > 0 ? (
             <>
@@ -287,12 +285,12 @@ export default function HomePage() {
                   <PropertyCard key={property.id} property={property} />
                 ))}
               </div>
-              
+
               {/* View All Button */}
               <div className="text-center">
                 <Link href={`/properties?listing_type=${listingType === 'buy' ? 'sale' : 'rent'}`}>
-                  <Button 
-                    size="lg" 
+                  <Button
+                    size="lg"
                     className="group bg-gradient-to-r from-primary-600 to-primary-800 hover:from-primary-700 hover:to-primary-900 text-white shadow-lg hover:shadow-xl transition-all"
                   >
                     View All {listingType === 'buy' ? 'Buy' : 'Rent'} Properties
@@ -319,7 +317,7 @@ export default function HomePage() {
             <div className="absolute top-20 left-10 w-96 h-96 bg-primary-100/30 rounded-full blur-3xl"></div>
             <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary-200/20 rounded-full blur-3xl"></div>
           </div>
-          
+
           <div className="container-custom relative z-10">
             {/* Header */}
             <div className="text-center mb-12">
@@ -334,19 +332,19 @@ export default function HomePage() {
                 Handpicked premium properties that meet our highest standards
               </p>
             </div>
-            
+
             {/* Properties Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {featuredProperties.map((property) => (
                 <PropertyCard key={property.id} property={property} />
               ))}
             </div>
-            
+
             {/* View All Button */}
             <div className="text-center mt-8">
               <Link href="/properties?featured=true">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="group bg-gradient-to-r from-primary-600 to-primary-800 hover:from-primary-700 hover:to-primary-900 text-white shadow-lg hover:shadow-xl transition-all"
                 >
                   View All Featured Properties
@@ -366,7 +364,7 @@ export default function HomePage() {
             <div className="absolute top-20 right-10 w-96 h-96 bg-primary-200/20 rounded-full blur-3xl animate-pulse"></div>
             <div className="absolute bottom-20 left-10 w-80 h-80 bg-primary-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
           </div>
-          
+
           <div className="container-custom relative z-10">
             {/* Header */}
             <div className="text-center mb-12">
@@ -381,19 +379,19 @@ export default function HomePage() {
                 Most viewed and in-demand properties in Lucknow
               </p>
             </div>
-            
+
             {/* Properties Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               {trendingProperties.map((property) => (
                 <PropertyCard key={property.id} property={property} />
               ))}
             </div>
-            
+
             {/* View All Button */}
             <div className="text-center mt-8">
               <Link href="/properties">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="group bg-gradient-to-r from-primary-600 to-primary-800 hover:from-primary-700 hover:to-primary-900 text-white shadow-lg hover:shadow-xl transition-all"
                 >
                   View All Properties
@@ -413,7 +411,7 @@ export default function HomePage() {
           <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary-300/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-primary-100/30 to-cyan-100/30 rounded-full blur-3xl"></div>
         </div>
-        
+
         <div className="container-custom relative z-10">
           {/* Header */}
           <div className="text-center mb-16">
@@ -425,22 +423,22 @@ export default function HomePage() {
               What Our Customers Say
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
-              Don't just take our word for it - hear from our satisfied customers who found their dream properties
+              Don&apos;t just take our word for it - hear from our satisfied customers who found their dream properties
             </p>
           </div>
-          
+
           {/* Testimonials Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {/* Testimonial 1 */}
             <div className="group relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/50 hover:-translate-y-3 hover:scale-[1.02] overflow-hidden">
               {/* Decorative Gradient */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary-400/20 to-transparent rounded-bl-full"></div>
-              
+
               {/* Quote Icon */}
               <div className="absolute top-6 right-6 w-12 h-12 bg-gradient-to-br from-primary-500/10 to-primary-600/10 rounded-full flex items-center justify-center opacity-50 group-hover:opacity-100 transition-opacity">
                 <Quote className="w-6 h-6 text-primary-600" />
               </div>
-              
+
               <div className="relative z-10">
                 <div className="flex items-center gap-1 mb-5">
                   {[...Array(5)].map((_, i) => (
@@ -448,7 +446,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-8 leading-relaxed text-lg font-medium">
-                  "Esteto Properties made finding my dream home so easy! Their team was professional, responsive, and helped me find the perfect 3BHK apartment in Gomti Nagar. Highly recommended!"
+                  &quot;Esteto Properties made finding my dream home so easy! Their team was professional, responsive, and helped me find the perfect 3BHK apartment in Gomti Nagar. Highly recommended!&quot;
                 </p>
                 <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
                   <div className="relative">
@@ -484,7 +482,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-8 leading-relaxed text-lg font-medium">
-                  "I was looking to rent an office space for my startup, and Esteto Properties found me the perfect location in Sector-9. The process was smooth and hassle-free. Great service!"
+                  &quot;I was looking to rent an office space for my startup, and Esteto Properties found me the perfect location in Sector-9. The process was smooth and hassle-free. Great service!&quot;
                 </p>
                 <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
                   <div className="relative">
@@ -520,7 +518,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-8 leading-relaxed text-lg font-medium">
-                  "Excellent platform for listing properties! I sold my house in Nirala Nagar within a month through Esteto Properties. Their team provided excellent support throughout the process."
+                  &quot;Excellent platform for listing properties! I sold my house in Nirala Nagar within a month through Esteto Properties. Their team provided excellent support throughout the process.&quot;
                 </p>
                 <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
                   <div className="relative">
@@ -556,7 +554,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-8 leading-relaxed text-lg font-medium">
-                  "Found my perfect rental apartment in Mahanagar through Esteto Properties. The search filters are amazing, and the property details were accurate. Very satisfied with the service!"
+                  &quot;Found my perfect rental apartment in Mahanagar through Esteto Properties. The search filters are amazing, and the property details were accurate. Very satisfied with the service!&quot;
                 </p>
                 <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
                   <div className="relative">
@@ -592,7 +590,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-8 leading-relaxed text-lg font-medium">
-                  "As a real estate investor, I use Esteto Properties regularly. Their verified listings and detailed property information help me make informed decisions quickly. Great platform!"
+                  &quot;As a real estate investor, I use Esteto Properties regularly. Their verified listings and detailed property information help me make informed decisions quickly. Great platform!&quot;
                 </p>
                 <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
                   <div className="relative">
@@ -628,7 +626,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-gray-700 mb-8 leading-relaxed text-lg font-medium">
-                  "Rented a beautiful villa in Indira Nagar for my family. The entire process from search to finalizing the deal was seamless. Esteto Properties truly cares about their customers!"
+                  &quot;Rented a beautiful villa in Indira Nagar for my family. The entire process from search to finalizing the deal was seamless. Esteto Properties truly cares about their customers!&quot;
                 </p>
                 <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
                   <div className="relative">
@@ -667,13 +665,13 @@ export default function HomePage() {
           {/* Dark Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary-900/90 via-primary-800/85 to-primary-900/90"></div>
         </div>
-        
+
         {/* Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-10 left-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-10 right-10 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
         </div>
-        
+
         <div className="container-custom relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             {/* Badge */}
@@ -681,17 +679,17 @@ export default function HomePage() {
               <Plus className="w-4 h-4" />
               <span className="text-sm font-medium">Start Listing Today</span>
             </div>
-            
+
             {/* Heading */}
             <h2 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg">
               Ready to List Your Property?
             </h2>
-            
+
             {/* Description */}
             <p className="text-xl mb-8 text-white/90 drop-shadow-md max-w-2xl mx-auto">
               Join thousands of property owners and reach millions of potential buyers
             </p>
-            
+
             {/* Stats */}
             <div className="flex flex-wrap justify-center gap-8 mb-10">
               <div className="flex items-center gap-2">
@@ -709,11 +707,11 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-            
+
             {/* CTA Button */}
             <Link href="/properties/add">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="group bg-white text-primary-600 hover:bg-gray-100 shadow-2xl hover:shadow-3xl transition-all px-8 py-4 text-lg font-semibold"
               >
                 <Plus className="w-5 h-5 mr-2 group-hover:rotate-90 transition-transform" />
@@ -721,7 +719,7 @@ export default function HomePage() {
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            
+
             {/* Additional Info */}
             <p className="text-sm text-white/70 mt-6">
               ✓ Free listing &nbsp; • &nbsp; ✓ No hidden fees &nbsp; • &nbsp; ✓ Quick approval
@@ -732,3 +730,4 @@ export default function HomePage() {
     </div>
   )
 }
+

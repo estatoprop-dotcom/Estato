@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { MapPin, Bed, Bath, Square, Heart, Share2, Phone, Mail, Whatsapp, ArrowLeft, CheckCircle, Star } from 'lucide-react'
+import { MapPin, Bed, Bath, Square, Heart, Share2, Phone, Mail, MessageCircle, ArrowLeft, CheckCircle, Star } from 'lucide-react'
 import { Property } from '@/lib/supabase/types'
 import { createSupabaseClient } from '@/lib/supabase/client'
-import { useMockData, mockApi } from '@/lib/mock-api'
+import { shouldUseMockData, mockApi } from '@/lib/mock-api'
 import { formatPrice, formatDate } from '@/lib/utils'
 import Button from '@/components/ui/Button'
 import PropertyMap from '@/components/properties/PropertyMap'
@@ -20,20 +20,8 @@ export default function PropertyDetailsPage() {
   const [selectedImage, setSelectedImage] = useState(0)
   const [isSaved, setIsSaved] = useState(false)
 
-  useEffect(() => {
-    if (params.id) {
-      fetchProperty()
-    }
-  }, [params.id])
-
-  useEffect(() => {
-    if (property) {
-      checkIfSaved()
-    }
-  }, [property])
-
-  const fetchProperty = async () => {
-    if (useMockData()) {
+  const fetchProperty = useCallback(async () => {
+    if (shouldUseMockData()) {
       // Use mock data
       const data = await mockApi.getPropertyById(params.id as string)
       setProperty(data)
@@ -61,10 +49,10 @@ export default function PropertyDetailsPage() {
       setProperty(data)
     }
     setLoading(false)
-  }
+  }, [params.id])
 
-  const checkIfSaved = async () => {
-    if (useMockData()) {
+  const checkIfSaved = useCallback(async () => {
+    if (shouldUseMockData()) {
       setIsSaved(false)
       return
     }
@@ -76,7 +64,7 @@ export default function PropertyDetailsPage() {
     }
 
     const { data: { user } } = await supabase.auth.getUser()
-    
+
     if (!user || !property) return
 
     const { data } = await supabase
@@ -87,10 +75,22 @@ export default function PropertyDetailsPage() {
       .single()
 
     setIsSaved(!!data)
-  }
+  }, [property])
+
+  useEffect(() => {
+    if (params.id) {
+      fetchProperty()
+    }
+  }, [params.id, fetchProperty])
+
+  useEffect(() => {
+    if (property) {
+      checkIfSaved()
+    }
+  }, [property, checkIfSaved])
 
   const handleSave = async () => {
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       toast('Please configure Supabase to save properties', { icon: 'ℹ️' })
       return
     }
@@ -146,7 +146,7 @@ export default function PropertyDetailsPage() {
 
   const handleWhatsApp = () => {
     if (property) {
-      const message = `Hi, I'm interested in ${property.title} at ${property.location}`
+      const message = `Hi, I&apos;m interested in ${property.title} at ${property.location}`
       window.open(`https://wa.me/${property.owner_phone}?text=${encodeURIComponent(message)}`, '_blank')
     }
   }
@@ -206,11 +206,10 @@ export default function PropertyDetailsPage() {
                   <span className="text-lg">{property.area}, {property.city}</span>
                 </div>
                 <div className="flex items-center gap-4 text-sm">
-                  <span className={`px-3 py-1 rounded-full font-medium ${
-                    property.listing_type === 'rent' 
-                      ? 'bg-blue-100 text-blue-700' 
-                      : 'bg-green-100 text-green-700'
-                  }`}>
+                  <span className={`px-3 py-1 rounded-full font-medium ${property.listing_type === 'rent'
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'bg-green-100 text-green-700'
+                    }`}>
                     {property.listing_type === 'rent' ? 'For Rent' : 'For Sale'}
                   </span>
                   <span className="text-gray-500">•</span>
@@ -218,8 +217,8 @@ export default function PropertyDetailsPage() {
                 </div>
               </div>
               <div className="flex gap-3">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={handleSave}
                   className={`${isSaved ? 'bg-primary-50 border-primary-600 text-primary-700' : ''}`}
                 >
@@ -261,11 +260,10 @@ export default function PropertyDetailsPage() {
                       <button
                         key={index}
                         onClick={() => setSelectedImage(index)}
-                        className={`relative h-24 rounded-lg overflow-hidden border-2 transition-all ${
-                          selectedImage === index 
-                            ? 'border-primary-600 ring-2 ring-primary-200' 
-                            : 'border-gray-200 hover:border-primary-300'
-                        }`}
+                        className={`relative h-24 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index
+                          ? 'border-primary-600 ring-2 ring-primary-200'
+                          : 'border-gray-200 hover:border-primary-300'
+                          }`}
                       >
                         {image ? (
                           <Image
@@ -359,26 +357,26 @@ export default function PropertyDetailsPage() {
               </div>
 
               <div className="space-y-3 mb-6">
-                <Button 
-                  className="w-full bg-gradient-to-r from-primary-600 to-primary-800 hover:from-primary-700 hover:to-primary-900 shadow-lg" 
+                <Button
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-800 hover:from-primary-700 hover:to-primary-900 shadow-lg"
                   size="lg"
                   onClick={() => window.location.href = `tel:${property.owner_phone}`}
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   Call Owner
                 </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full border-2 border-green-500 text-green-600 hover:bg-green-50" 
-                  size="lg" 
+                <Button
+                  variant="outline"
+                  className="w-full border-2 border-green-500 text-green-600 hover:bg-green-50"
+                  size="lg"
                   onClick={handleWhatsApp}
                 >
-                  <Whatsapp className="w-5 h-5 mr-2" />
+                  <MessageCircle className="w-5 h-5 mr-2" />
                   WhatsApp
                 </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full border-2" 
+                <Button
+                  variant="outline"
+                  className="w-full border-2"
                   size="lg"
                   onClick={() => window.location.href = `mailto:${property.owner_email}`}
                 >

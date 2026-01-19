@@ -81,7 +81,7 @@ export default function ContactPage() {
             Contact Us
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            Have questions? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ export default function ContactPage() {
               <div className="w-1 h-8 bg-gradient-to-b from-primary-500 to-primary-700 rounded"></div>
               <h2 className="text-3xl font-bold text-gray-900">Send us a Message</h2>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative">
@@ -193,23 +193,21 @@ export default function ContactPage() {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   onFocus={() => setFocusedField('message')}
                   onBlur={() => setFocusedField(null)}
-                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 min-h-[150px] resize-none ${
-                    focusedField === 'message' 
-                      ? 'ring-2 ring-primary-500 border-primary-500' 
-                      : 'border-gray-300 hover:border-primary-300'
-                  }`}
+                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 min-h-[150px] resize-none ${focusedField === 'message'
+                    ? 'ring-2 ring-primary-500 border-primary-500'
+                    : 'border-gray-300 hover:border-primary-300'
+                    }`}
                   required
                 />
-                <div className={`absolute bottom-3 right-3 text-xs text-gray-400 transition-opacity ${
-                  focusedField === 'message' ? 'opacity-0' : 'opacity-100'
-                }`}>
+                <div className={`absolute bottom-3 right-3 text-xs text-gray-400 transition-opacity ${focusedField === 'message' ? 'opacity-0' : 'opacity-100'
+                  }`}>
                   {formData.message.length}/500
                 </div>
               </div>
 
-              <Button 
-                type="submit" 
-                className="w-full bg-gradient-to-r from-primary-600 to-primary-800 hover:from-primary-700 hover:to-primary-900 text-white shadow-lg hover:shadow-xl transition-all duration-300 py-4 text-lg font-semibold" 
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-primary-600 to-primary-800 hover:from-primary-700 hover:to-primary-900 text-white shadow-lg hover:shadow-xl transition-all duration-300 py-4 text-lg font-semibold"
                 loading={loading}
                 disabled={loading}
               >
@@ -229,7 +227,7 @@ export default function ContactPage() {
                 <Building2 className="w-12 h-12 mb-4" />
                 <h3 className="text-2xl font-bold mb-4">Our Office</h3>
                 <p className="text-primary-100 mb-6">
-                  Visit our office in the heart of Lucknow. We're here to help you find your dream property.
+                  Visit our office in the heart of Lucknow. We&apos;re here to help you find your dream property.
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">

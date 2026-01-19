@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Users, Home, Eye, Edit, Trash2, TrendingUp } from 'lucide-react'
 import { Property, User } from '@/lib/supabase/types'
 import { createSupabaseClient } from '@/lib/supabase/client'
-import { useMockData, mockApi, mockProperties, mockUsers } from '@/lib/mock-api'
+import { shouldUseMockData, mockApi, mockProperties, mockUsers } from '@/lib/mock-api'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
@@ -27,7 +27,7 @@ export default function AdminDashboardPage() {
     checkAdmin()
 
     // Realtime subscription
-    if (supabase && !useMockData()) {
+    if (supabase && !shouldUseMockData()) {
       const channel = supabase
         .channel('admin_dashboard')
         .on('postgres_changes', { event: '*', schema: 'public', table: 'properties' }, () => {
@@ -71,7 +71,7 @@ export default function AdminDashboardPage() {
   }
 
   const checkAdmin = async () => {
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       setUser({ id: 'demo-admin', email: 'admin@demo.com' })
       fetchDashboardData()
       return
@@ -117,7 +117,7 @@ export default function AdminDashboardPage() {
   }
 
   const fetchDashboardData = async () => {
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       const activeListings = mockProperties.filter(p => p.status === 'active').length
       const pendingListings = mockProperties.filter(p => p.status === 'pending').length
 
@@ -144,7 +144,7 @@ export default function AdminDashboardPage() {
           // Wait, let's match the API shape I saw earlier
           // API returns: { totalUsers, totalProperties, pendingProperties, totalRevenue }
           // My state needs: { totalUsers, totalProperties, activeListings, pendingListings }
-          // API doesn't return activeListings?
+          // API doesn&apos;t return activeListings?
           // Let's check API code from Step 223/235
           // API returns: { totalUsers, totalProperties, pendingProperties, totalRevenue }
           pendingListings: response.data.pendingProperties
@@ -174,7 +174,7 @@ export default function AdminDashboardPage() {
   }
 
   const handleStatusChange = async (propertyId: string, newStatus: string) => {
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       toast('Mock: Status updated', { icon: 'ℹ️' })
       return
     }
@@ -196,7 +196,7 @@ export default function AdminDashboardPage() {
   const handleDeleteProperty = async (propertyId: string) => {
     if (!confirm('Are you sure you want to delete this property?')) return
 
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       toast('Mock: Property deleted', { icon: 'ℹ️' })
       return
     }
@@ -311,10 +311,10 @@ export default function AdminDashboardPage() {
                       value={property.status}
                       onChange={(e) => handleStatusChange(property.id, e.target.value)}
                       className={`px-3 py-1 rounded-full text-sm font-medium ${property.status === 'active'
-                          ? 'bg-green-100 text-green-800'
-                          : property.status === 'pending'
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-gray-100 text-gray-800'
+                        ? 'bg-green-100 text-green-800'
+                        : property.status === 'pending'
+                          ? 'bg-yellow-100 text-yellow-800'
+                          : 'bg-gray-100 text-gray-800'
                         }`}
                     >
                       <option value="active">Active</option>

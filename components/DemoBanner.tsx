@@ -1,10 +1,10 @@
 'use client'
 
-import { useMockData } from '@/lib/mock-api'
+import { shouldUseMockData } from '@/lib/mock-api'
 import { AlertCircle } from 'lucide-react'
 
 export default function DemoBanner() {
-  const isDemo = useMockData()
+  const isDemo = shouldUseMockData()
 
   if (!isDemo) return null
 
@@ -21,3 +21,4 @@ export default function DemoBanner() {
     </div>
   )
 }
+

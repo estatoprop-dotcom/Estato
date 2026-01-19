@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, User, LogOut, Heart, Plus, Home, Building2, Settings, ChevronDown, BookOpen } from 'lucide-react'
 import { createSupabaseClient } from '@/lib/supabase/client'
-import { useMockData } from '@/lib/mock-api'
+import { shouldUseMockData } from '@/lib/mock-api'
 import { User as SupabaseUser } from '@supabase/supabase-js'
 import Button from '@/components/ui/Button'
 
@@ -19,7 +19,7 @@ export default function Navbar() {
   const userMenuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       setUser(null)
       setUserRole('user')
       return
@@ -56,7 +56,7 @@ export default function Navbar() {
   }, [userMenuOpen])
 
   const checkUser = async () => {
-    if (useMockData() || !supabase) {
+    if (shouldUseMockData() || !supabase) {
       setUser(null)
       return
     }
@@ -74,7 +74,7 @@ export default function Navbar() {
   }
 
   const fetchUserRole = async (userId: string) => {
-    if (useMockData() || !supabase) {
+    if (shouldUseMockData() || !supabase) {
       setUserRole('user')
       return
     }
@@ -96,7 +96,7 @@ export default function Navbar() {
   }
 
   const handleSignOut = async () => {
-    if (useMockData() || !supabase) {
+    if (shouldUseMockData() || !supabase) {
       setUser(null)
       setUserRole('user')
       setUserMenuOpen(false)
@@ -372,3 +372,4 @@ export default function Navbar() {
     </nav>
   )
 }
+

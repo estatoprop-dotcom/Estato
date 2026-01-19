@@ -8,7 +8,7 @@ import { formatPrice } from '@/lib/utils'
 import Card from '@/components/ui/Card'
 import { useState } from 'react'
 import { createSupabaseClient } from '@/lib/supabase/client'
-import { useMockData } from '@/lib/mock-api'
+import { shouldUseMockData } from '@/lib/mock-api'
 import toast from 'react-hot-toast'
 
 interface PropertyCardProps {
@@ -27,7 +27,7 @@ export default function PropertyCard({ property, onSaveToggle, isSaved = false }
     
     if (saving) return
     
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       toast('Please configure Supabase to save properties', { icon: 'ℹ️' })
       return
     }
@@ -151,3 +151,4 @@ export default function PropertyCard({ property, onSaveToggle, isSaved = false }
     </Link>
   )
 }
+

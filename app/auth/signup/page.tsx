@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Mail, Lock, User, UserPlus, Eye, EyeOff, Home, Building2, Building } from 'lucide-react'
 import { createSupabaseClient } from '@/lib/supabase/client'
-import { useMockData } from '@/lib/mock-api'
+import { shouldUseMockData } from '@/lib/mock-api'
 import toast from 'react-hot-toast'
 import Input from '@/components/ui/Input'
 
@@ -25,7 +25,7 @@ export default function SignupPage() {
   const handleEmailSignup = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       toast('Please configure Supabase to create an account', { icon: 'ℹ️' })
       return
     }
@@ -80,7 +80,7 @@ export default function SignupPage() {
   }
 
   const handleGoogleSignup = async () => {
-    if (useMockData() || !supabase) {
+    if (shouldUseMockData() || !supabase) {
       toast('Please configure Supabase to enable Google OAuth', { icon: 'ℹ️' })
       return
     }
@@ -299,3 +299,4 @@ export default function SignupPage() {
     </div>
   )
 }
+

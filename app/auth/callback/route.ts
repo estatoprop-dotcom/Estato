@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
     await supabase.auth.exchangeCodeForSession(code)
 
-    // Create user record if doesn't exist
+    // Create user record if doesn&apos;t exist
     const { data: { user } } = await supabase.auth.getUser()
     if (user) {
       const { data: existingUser } = await supabase

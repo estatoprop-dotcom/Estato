@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Mail, Lock, LogIn, Eye, EyeOff, Home, Building2, Building } from 'lucide-react'
 import Input from '@/components/ui/Input'
 import { createSupabaseClient } from '@/lib/supabase/client'
-import { useMockData } from '@/lib/mock-api'
+import { shouldUseMockData } from '@/lib/mock-api'
 import toast from 'react-hot-toast'
 
 export default function LoginPage() {
@@ -19,8 +19,8 @@ export default function LoginPage() {
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    if (useMockData()) {
+
+    if (shouldUseMockData()) {
       toast('Please configure Supabase to enable authentication', { icon: 'ℹ️' })
       return
     }
@@ -51,7 +51,7 @@ export default function LoginPage() {
   }
 
   const handleGoogleLogin = async () => {
-    if (useMockData() || !supabase) {
+    if (shouldUseMockData() || !supabase) {
       toast('Please configure Supabase to enable Google OAuth', { icon: 'ℹ️' })
       return
     }
@@ -79,37 +79,37 @@ export default function LoginPage() {
         <Building2 className="absolute top-40 right-20 w-40 h-40 text-primary-100 opacity-20" />
         <Building className="absolute bottom-20 right-10 w-36 h-36 text-primary-100 opacity-25" />
         <Building2 className="absolute bottom-32 left-20 w-44 h-44 text-primary-100 opacity-20" />
-        
+
         {/* Small Icons - Scattered */}
         <Home className="absolute top-16 left-32 w-12 h-12 text-primary-100 opacity-20" />
         <Building2 className="absolute top-28 left-52 w-10 h-10 text-primary-100 opacity-15" />
         <Home className="absolute top-48 left-16 w-14 h-14 text-primary-100 opacity-25" />
         <Building className="absolute top-64 left-44 w-12 h-12 text-primary-100 opacity-20" />
         <Home className="absolute top-80 left-28 w-10 h-10 text-primary-100 opacity-15" />
-        
+
         <Building2 className="absolute top-24 right-32 w-14 h-14 text-primary-100 opacity-25" />
         <Home className="absolute top-44 right-48 w-12 h-12 text-primary-100 opacity-20" />
         <Building className="absolute top-60 right-24 w-10 h-10 text-primary-100 opacity-15" />
         <Home className="absolute top-76 right-40 w-14 h-14 text-primary-100 opacity-25" />
         <Building2 className="absolute top-96 right-28 w-12 h-12 text-primary-100 opacity-20" />
-        
+
         <Home className="absolute top-1/4 left-1/3 w-10 h-10 text-primary-100 opacity-15" />
         <Building2 className="absolute top-1/3 left-2/3 w-12 h-12 text-primary-100 opacity-20" />
         <Building className="absolute top-2/5 left-1/5 w-10 h-10 text-primary-100 opacity-15" />
         <Home className="absolute top-3/5 left-3/4 w-14 h-14 text-primary-100 opacity-25" />
         <Building2 className="absolute top-4/5 left-1/2 w-12 h-12 text-primary-100 opacity-20" />
-        
+
         <Home className="absolute bottom-24 right-16 w-10 h-10 text-primary-100 opacity-15" />
         <Building className="absolute bottom-40 right-36 w-12 h-12 text-primary-100 opacity-20" />
         <Home className="absolute bottom-56 right-20 w-10 h-10 text-primary-100 opacity-15" />
         <Building2 className="absolute bottom-72 right-44 w-14 h-14 text-primary-100 opacity-25" />
-        
+
         <Building className="absolute bottom-28 left-36 w-10 h-10 text-primary-100 opacity-15" />
         <Home className="absolute bottom-44 left-52 w-12 h-12 text-primary-100 opacity-20" />
         <Building2 className="absolute bottom-60 left-28 w-10 h-10 text-primary-100 opacity-15" />
         <Home className="absolute bottom-76 left-44 w-14 h-14 text-primary-100 opacity-25" />
       </div>
-      
+
       <div className="max-w-md w-full relative z-10">
         {/* Header */}
         <div className="text-center mb-6">
@@ -167,16 +167,16 @@ export default function LoginPage() {
                 <span className="ml-2 block text-gray-700">Remember me</span>
               </label>
 
-              <Link 
-                href="/auth/forgot-password" 
+              <Link
+                href="/auth/forgot-password"
                 className="font-medium text-primary-600 hover:text-primary-700 transition-colors"
               >
                 Forgot password?
               </Link>
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={loading}
               className="w-full bg-primary-600 text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-md hover:shadow-lg text-sm"
             >
@@ -235,9 +235,9 @@ export default function LoginPage() {
           {/* Sign Up Link */}
           <div className="mt-4 text-center">
             <p className="text-xs text-gray-600">
-              Don't have an account?{' '}
-              <Link 
-                href="/auth/signup" 
+              Don&apos;t have an account?{' '}
+              <Link
+                href="/auth/signup"
                 className="font-semibold text-primary-600 hover:text-primary-700 transition-colors"
               >
                 Sign up for free
@@ -248,8 +248,8 @@ export default function LoginPage() {
 
         {/* Back to Home */}
         <div className="mt-4 text-center">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="inline-flex items-center gap-2 text-xs text-gray-600 hover:text-primary-600 transition-colors"
           >
             <Home className="w-3 h-3" />
@@ -260,3 +260,4 @@ export default function LoginPage() {
     </div>
   )
 }
+

@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Heart, Plus, Edit, Trash2, Home, Building2, TrendingUp, Mail, Phone, User as UserIcon, Calendar } from 'lucide-react'
 import { Property } from '@/lib/supabase/types'
 import { createSupabaseClient } from '@/lib/supabase/client'
-import { useMockData, mockApi } from '@/lib/mock-api'
+import { shouldUseMockData, mockApi } from '@/lib/mock-api'
 import PropertyCard from '@/components/properties/PropertyCard'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
@@ -39,9 +39,9 @@ export default function DashboardPage() {
   }, [activeTab, user, loading])
 
   const checkAuth = async () => {
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       // In demo mode, create a mock user
-      setUser({ 
+      setUser({
         id: 'demo-user',
         email: 'demo@example.com',
         full_name: 'Demo User'
@@ -72,7 +72,7 @@ export default function DashboardPage() {
 
   const fetchSavedProperties = async () => {
     setLoading(true)
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       // In demo mode, show empty saved properties
       setSavedProperties([])
       setLoading(false)
@@ -96,8 +96,8 @@ export default function DashboardPage() {
 
       if (data) {
         const properties = data
-          .filter(item => item.property)
-          .map(item => item.property) as Property[]
+          .filter((item: any) => item.property)
+          .map((item: any) => item.property) as Property[]
         setSavedProperties(properties)
       }
     } catch (error) {
@@ -108,7 +108,7 @@ export default function DashboardPage() {
 
   const fetchMyProperties = async () => {
     setLoading(true)
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       // In demo mode, show empty my properties
       setMyProperties([])
       setLoading(false)
@@ -138,7 +138,7 @@ export default function DashboardPage() {
   const handleDeleteProperty = async (propertyId: string) => {
     if (!confirm('Are you sure you want to delete this property?')) return
 
-    if (useMockData() || !supabase) {
+    if (shouldUseMockData() || !supabase) {
       toast('Please configure Supabase to delete properties', { icon: 'ℹ️' })
       return
     }
@@ -186,7 +186,7 @@ export default function DashboardPage() {
             <div className="w-24 h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white text-4xl font-bold border-4 border-white/30 shadow-xl">
               {userInitial}
             </div>
-            
+
             {/* User Info */}
             <div className="flex-1">
               <h1 className="text-3xl font-bold mb-2">
@@ -253,11 +253,10 @@ export default function DashboardPage() {
           <div className="flex border-b border-gray-200">
             <button
               onClick={() => setActiveTab('saved')}
-              className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${
-                activeTab === 'saved'
-                  ? 'text-primary-600 bg-primary-50 border-b-2 border-primary-600'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
+              className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${activeTab === 'saved'
+                ? 'text-primary-600 bg-primary-50 border-b-2 border-primary-600'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                }`}
             >
               <Heart className="w-5 h-5" />
               Saved Properties
@@ -267,11 +266,10 @@ export default function DashboardPage() {
             </button>
             <button
               onClick={() => setActiveTab('my-listings')}
-              className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${
-                activeTab === 'my-listings'
-                  ? 'text-primary-600 bg-primary-50 border-b-2 border-primary-600'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
+              className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 font-medium transition-colors ${activeTab === 'my-listings'
+                ? 'text-primary-600 bg-primary-50 border-b-2 border-primary-600'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                }`}
             >
               <Home className="w-5 h-5" />
               My Listings
@@ -302,7 +300,7 @@ export default function DashboardPage() {
                       <Heart className="w-12 h-12 text-gray-400" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-2">No saved properties yet</h3>
-                    <p className="text-gray-600 mb-8">Start saving properties you're interested in</p>
+                    <p className="text-gray-600 mb-8">Start saving properties you&apos;re interested in</p>
                     <Link href="/properties">
                       <Button size="lg">
                         <Building2 className="w-5 h-5 mr-2" />
@@ -354,15 +352,14 @@ export default function DashboardPage() {
                                   {property.location}, {property.city}
                                 </p>
                               </div>
-                              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                property.status === 'active' ? 'bg-green-100 text-green-800' :
+                              <span className={`px-3 py-1 rounded-full text-sm font-medium ${property.status === 'active' ? 'bg-green-100 text-green-800' :
                                 property.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                                'bg-gray-100 text-gray-800'
-                              }`}>
+                                  'bg-gray-100 text-gray-800'
+                                }`}>
                                 {property.status}
                               </span>
                             </div>
-                            
+
                             <div className="flex flex-wrap gap-4 mb-4 text-sm text-gray-600">
                               <span>₹{property.price.toLocaleString()}/{property.listing_type === 'rent' ? 'mo' : ''}</span>
                               <span>•</span>
@@ -423,3 +420,4 @@ export default function DashboardPage() {
     </div>
   )
 }
+

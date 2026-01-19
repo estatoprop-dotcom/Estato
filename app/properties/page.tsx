@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { Property, FilterParams } from '@/lib/supabase/types'
 import { createSupabaseClient } from '@/lib/supabase/client'
-import { useMockData, mockApi } from '@/lib/mock-api'
+import { shouldUseMockData, mockApi } from '@/lib/mock-api'
 
 export default function PropertiesPage() {
   const searchParams = useSearchParams()
@@ -58,7 +58,7 @@ export default function PropertiesPage() {
   }, [])
 
   const fetchProperties = async () => {
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       const data = await mockApi.getProperties()
       setProperties(data)
       setLoading(false)
@@ -89,7 +89,7 @@ export default function PropertiesPage() {
     // Simulate slight delay for better UX
     await new Promise(resolve => setTimeout(resolve, 100))
     
-    if (useMockData()) {
+    if (shouldUseMockData()) {
       const filtered = await mockApi.getProperties(filters)
       setFilteredProperties(filtered)
       setSearching(false)
@@ -519,3 +519,4 @@ export default function PropertiesPage() {
     </div>
   )
 }
+
